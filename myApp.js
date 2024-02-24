@@ -47,6 +47,7 @@ app.get('/:word/echo', (req, res) => {
 
 // get query parameter input and response with the recieved parameter values
 // chain the get and post methods
+// test: pass the url: <app-url>/name?first=firstname&last=lastname
 app.route('/name').get((req, res) => {
     res.send({'name': `${req.query.first} ${req.query.last}`});
 });
