@@ -45,6 +45,11 @@ app.get('/:word/echo', (req, res) => {
     res.send({'echo': req.params.word});
 });
 
+// get query parameter input and response with the recieved parameter values
+// chain the get and post methods
+app.route('/name').get((req, res) => {
+    res.send({'name': `${req.query.first} ${req.query.last}`});
+});
 
 
 
