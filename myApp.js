@@ -13,10 +13,12 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');
 });
 
+// use middleware function (express.static) to give access
+// to the static assets directory
 app.use('/public', express.static(__dirname + '/public'));
 
+// use dotenv to modify the response
 app.get('/json', (req, res) => {
-    // if (process.env.MESSAGE_STYLE == 'uppercase') 
     if (process.env.MESSAGE_STYLE === 'uppercase') {
         res.json({
             "message": "HELLO JSON"
@@ -28,6 +30,8 @@ app.get('/json', (req, res) => {
     }
 });
 
+// time server
+
 app.get('/now', (req, res, next) => {
     req.time = new Date().toString();
     next();
@@ -36,6 +40,10 @@ app.get('/now', (req, res, next) => {
     res.send({'time': req.time});
 });
 
+// echo server
+app.get('/:word/echo', (req, res) => {
+    res.send({'echo': req.params.word});
+});
 
 
 
