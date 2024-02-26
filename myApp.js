@@ -1,4 +1,5 @@
 require('dotenv').config();
+let bodyParser = require('body-parser');
 let express = require('express');
 let app = express();
 
@@ -8,6 +9,8 @@ app.use((req, res, next) => {
     console.log(`${req.method} ${req.path} - ${req.ip}`);
     next();
 });
+
+app.use(bodyParser.urlencoded({extended: false}));
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');
@@ -45,12 +48,17 @@ app.get('/:word/echo', (req, res) => {
     res.send({'echo': req.params.word});
 });
 
+
 // get query parameter input and response with the recieved parameter values
 // chain the get and post methods
 // test: pass the url: <app-url>/name?first=firstname&last=lastname
 app.route('/name').get((req, res) => {
     res.send({'name': `${req.query.first} ${req.query.last}`});
+}).post((req, res) => {
+    const txt = req.body.first + " " + req.body.last;
+    res.json({name: txt});
 });
+
 
 
 
